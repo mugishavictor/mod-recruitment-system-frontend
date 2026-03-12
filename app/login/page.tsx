@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import PublicShell from "@/components/layout/public-shell";
 import { apiFetch } from "@/lib/api";
 import { FeedbackAlert } from "@/components/shared/feedback-alert";
 
@@ -41,48 +42,48 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
-      <form
-        onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-4 rounded-2xl border p-6 shadow-sm"
-      >
-        <h1 className="text-2xl font-semibold">Login</h1>
+    <PublicShell
+      title="Login"
+      description="Sign in to access the recruitment dashboard, review applications, and manage users."
+    >
+      <div className="max-w-2xl">
+        <div className="rounded-[2rem] border bg-white p-6 shadow-sm md:p-8">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error ? (
+              <FeedbackAlert
+                type="error"
+                title="Login failed"
+                message={error}
+              />
+            ) : null}
 
-        {success ? (
-          <FeedbackAlert
-            type="success"
-            title="Success"
-            message={success}
-          />
-        ) : null}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Email</label>
+              <input
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-        {error ? (
-          <FeedbackAlert
-            type="error"
-            title="Login failed"
-            message={error}
-          />
-        ) : null}
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-slate-700">Password</label>
+              <input
+                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-slate-500"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-        <input
-          className="w-full rounded-md border p-3"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          className="w-full rounded-md border p-3"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button className="w-full rounded-md bg-black p-3 text-white">
-          Sign in
-        </button>
-      </form>
-    </div>
+            <button className="w-full rounded-xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+              Sign in
+            </button>
+          </form>
+        </div>
+      </div>
+    </PublicShell>
   );
 }

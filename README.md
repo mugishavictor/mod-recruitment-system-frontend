@@ -160,18 +160,6 @@ These should match the backend seed data:
 2. Open `/users`
 3. Create, update, or deactivate users
 
-## Suggested UI Components
-This project uses shadcn/ui components for:
-- buttons
-- inputs
-- cards
-- forms
-- tables
-- dialogs
-- badges
-- textareas
-- selects
-
 ## Important Notes
 - The frontend depends on the backend being available and reachable
 - If login succeeds but protected pages fail, check `NEXT_PUBLIC_API_URL`
