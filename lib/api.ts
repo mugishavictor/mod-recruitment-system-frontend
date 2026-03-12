@@ -11,14 +11,15 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const response = await fetch(`${API_URL}${path}`, {
+  const response : any = await fetch(`${API_URL}${path}`, {
     ...options,
     headers,
   });
 
   if (!response.ok) {
-    const text = await response.text();
-    throw new Error(text || "Request failed");
+    const resp = await response.json()
+    
+    throw new Error(resp?.message || "Request failed");
   }
 
   if (response.status === 204) {
