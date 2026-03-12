@@ -32,11 +32,14 @@ export default function LoginPage() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
       localStorage.setItem("fullName", data.fullName);
+      localStorage.setItem("email", data.email);
 
       setSuccess("Login successful. Redirecting to dashboard...");
-      router.push("/dashboard");
-    } catch (err: any ) {
-      
+
+      setTimeout(() => {
+        router.replace("/dashboard");
+      }, 300);
+    } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     }
   }
@@ -49,6 +52,14 @@ export default function LoginPage() {
       <div className="max-w-2xl">
         <div className="rounded-[2rem] border bg-white p-6 shadow-sm md:p-8">
           <form onSubmit={handleSubmit} className="space-y-5">
+            {success ? (
+              <FeedbackAlert
+                type="success"
+                title="Success"
+                message={success}
+              />
+            ) : null}
+
             {error ? (
               <FeedbackAlert
                 type="error"

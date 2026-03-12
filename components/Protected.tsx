@@ -1,17 +1,36 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated } from "@/lib/auth";
 
-export default function Protected({ children }: { children: React.ReactNode }) {
+type ProtectedProps = {
+  children: React.ReactNode;
+};
+
+export default function Protected({ children }: ProtectedProps) {
   const router = useRouter();
+  const [authorized, setAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/login");
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.replace("/login");
+      setAuthorized(false);
+    } else {
+      setAuthorized(true);
     }
   }, [router]);
+
+  if (authorized === null) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-sm text-slate-500">Checking authentication...</p>
+      </div>
+    );
+  }
+
+  if (!authorized) return null;
 
   return <>{children}</>;
 }

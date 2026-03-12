@@ -39,12 +39,7 @@ export default function HomePage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
 
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-2 rounded-2xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
-            >
-              Staff Login
-            </Link>
+            
           </div>
         </div>
 
